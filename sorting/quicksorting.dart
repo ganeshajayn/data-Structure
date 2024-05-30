@@ -2,7 +2,7 @@ void quickSort(List<int> list, int left, int right) {
   if (left < right) {
     int pivotIndex = partition(list, left, right);
     quickSort(list, left, pivotIndex - 1);
-    // quickSort(list, pivotIndex + 1, right);
+    quickSort(list, pivotIndex + 1, right);
   }
 }
 
