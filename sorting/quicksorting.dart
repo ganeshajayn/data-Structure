@@ -1,33 +1,36 @@
-void quickSort(List<int> list, int left, int right) {
-  if (left < right) {
-    int pivotIndex = partition(list, left, right);
-    quickSort(list, left, pivotIndex - 1);
-    quickSort(list, pivotIndex + 1, right);
-  }
+void main() {
+  var list = [12, 8, 9, 5, 4, 1, 23, 7];
+  quicksort(list, 0, list.length - 1);
+  print(list);
 }
 
-int partition(List<int> list, int left, int right) {
-  int pivot = list[right];
-  int i = left - 1;
-  for (int j = left; j < right; j++) {
-    if (list[j] < pivot) {
-      i++;
-      swap(list, i, j);
+void quicksort(List array, int first, int last) {
+  if (first >= last) {
+    return;
+  }
+
+  int start = first + 1;
+  int end = last;
+  int pivotIndex = first;
+
+  while (start <= end) {
+    if (array[start] > array[pivotIndex] && array[end] < array[pivotIndex]) {
+      int temp = array[start];
+      array[start] = array[end];
+      array[end] = temp;
+    }
+    if (array[start] <= array[pivotIndex]) {
+      start++;
+    }
+    if (array[end] > array[pivotIndex]) {
+      end--;
     }
   }
-  swap(list, i + 1, right);
-  return i + 1;
-}
 
-void swap(List<int> list, int i, int j) {
-  int temp = list[i];
-  list[i] = list[j];
-  list[j] = temp;
-}
+  int temp = array[end];
+  array[end] = array[pivotIndex];
+  array[pivotIndex] = temp;
 
-void main() {
-  List<int> list = [34, 7, 23, 32, 5, 62];
-  print("Original list: $list");
-  quickSort(list, 0, list.length - 1);
-  print("Sorted list: $list");
+  quicksort(array, first, end - 1);
+  quicksort(array, end + 1, last);
 }
